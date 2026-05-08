@@ -10,7 +10,13 @@ async function bootstrap() {
         .filter(Boolean);
 
     app.enableCors({
-        origin: allowedOrigins.length > 0 ? allowedOrigins : true,
+        origin: (origin: string | undefined, cb: (err: Error | null, allow?: boolean) => void) => {
+            if (!origin) return cb(null, true);
+            if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return cb(null, true);
+            if (allowedOrigins.length === 0) return cb(null, true);
+            if (allowedOrigins.includes(origin)) return cb(null, true);
+            return cb(new Error(`CORS: Origin ${origin} not allowed`));
+        },
         credentials: true,
     });
 
