@@ -2,16 +2,19 @@ import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query } fr
 import { ProductsService, ProductFilter } from './products.service';
 import { Product } from './product.entity';
 import { CreateProductDto, UpdateProductDto } from './product.dto';
+import { Public } from 'src/admin/admin.guard';
 
 @Controller('products')
 export class ProductsController {
     constructor(private readonly productsService: ProductsService) {}
 
+    @Public()
     @Get()
     findAll(): Promise<Product[]> {
         return this.productsService.findAll();
     }
 
+    @Public()
     @Get('filter')
     findByFilter(
         @Query('tags') tags?: string,
@@ -28,6 +31,7 @@ export class ProductsController {
         return this.productsService.findByFilter(filter);
     }
 
+    @Public()
     @Get(':id')
     findOne(@Param('id') id: string): Promise<Product> {
         return this.productsService.findOne(id);

@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './product.entity';
-import { Public } from 'src/admin/admin.guard';
 
 export interface ProductFilter {
     tags?: string[];
@@ -18,19 +17,16 @@ export class ProductsService {
         private readonly productRepository: Repository<Product>,
     ) { }
 
-    @Public()
     findAll(): Promise<Product[]> {
         return this.productRepository.find({ relations: ['images'] });
     }
 
-    @Public()
     async findOne(id: string): Promise<Product> {
         const product = await this.productRepository.findOne({ where: { id }, relations: ['images'] });
         if (!product) throw new NotFoundException(`Product ${id} not found`);
         return product;
     }
 
-    @Public()
     async findByFilter(filter: ProductFilter): Promise<Product[]> {
         const qb = this.productRepository.createQueryBuilder('product');
 

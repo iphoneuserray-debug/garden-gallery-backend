@@ -12,11 +12,13 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { ProductImagesService } from './product-images.service';
+import { Public } from 'src/admin/admin.guard';
 
 @Controller('products/:productId/images')
 export class ProductImagesController {
     constructor(private readonly imagesService: ProductImagesService) { }
 
+    @Public()
     @Get()
     findAll(@Param('productId') productId: string) {
         return this.imagesService.findAll(productId);
