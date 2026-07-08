@@ -1,10 +1,12 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
 import { PickupLocationsService } from './pickup-locations.service';
 import { CreatePickupLocationDto, UpdatePickupLocationDto } from './pickup-location.dto';
+import { Public } from 'src/admin/admin.guard';
 
+@Public()
 @Controller('pickup-locations')
 export class PickupLocationsController {
-    constructor(private readonly pickupLocationsService: PickupLocationsService) {}
+    constructor(private readonly pickupLocationsService: PickupLocationsService) { }
 
     @Get()
     findAll() {

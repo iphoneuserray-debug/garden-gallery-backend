@@ -19,6 +19,8 @@ import { PickupLocation } from './pickup-locations/pickup-location.entity';
 import { PickupLocationsModule } from './pickup-locations/pickup-locations.module';
 import { Coupon } from './coupons/coupon.entity';
 import { CouponsModule } from './coupons/coupons.module';
+import { Admin } from './admin/admin.entity';
+import { AdminAuthModule } from './admin/admin.module';
 
 @Module({
     imports: [
@@ -32,7 +34,7 @@ import { CouponsModule } from './coupons/coupons.module';
                 username: config.get('DB_USERNAME'),
                 password: config.get('DB_PASSWORD'),
                 database: config.get('DB_NAME'),
-                entities: [Product, ProductImage, Customer, Order, OrderItem, Transaction, PickupLocation, Coupon],
+                entities: [Product, ProductImage, Customer, Order, OrderItem, Transaction, PickupLocation, Coupon, Admin],
                 synchronize: true,
             }),
         }),
@@ -44,6 +46,7 @@ import { CouponsModule } from './coupons/coupons.module';
         PaymentModule,
         PickupLocationsModule,
         CouponsModule,
+        AdminAuthModule,
     ],
     controllers: [AppController],
     providers: [AppService],

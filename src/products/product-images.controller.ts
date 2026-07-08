@@ -15,7 +15,7 @@ import { ProductImagesService } from './product-images.service';
 
 @Controller('products/:productId/images')
 export class ProductImagesController {
-    constructor(private readonly imagesService: ProductImagesService) {}
+    constructor(private readonly imagesService: ProductImagesService) { }
 
     @Get()
     findAll(@Param('productId') productId: string) {

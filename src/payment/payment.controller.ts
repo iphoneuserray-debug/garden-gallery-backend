@@ -3,10 +3,12 @@ import type { RawBodyRequest } from '@nestjs/common';
 import type { Request } from 'express';
 import { PaymentService } from './payment.service';
 import { CheckoutDto } from './payment.dto';
+import { Public } from 'src/admin/admin.guard';
 
+@Public()
 @Controller('payment')
 export class PaymentController {
-    constructor(private readonly paymentService: PaymentService) {}
+    constructor(private readonly paymentService: PaymentService) { }
 
     @Post('checkout')
     checkout(@Body() body: CheckoutDto) {
