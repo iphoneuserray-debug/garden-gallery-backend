@@ -11,10 +11,12 @@ export class AdminService {
 
     async match(id: string, password: string): Promise<{ access_token: string }> {
         const row = await this.adminRepository.findOneBy({ id });
+        console.log(`[admin login] id=${JSON.stringify(id)} found=${row != null}`);
         if (row == null) {
             throw new UnauthorizedException();
 
         } else if (row.password !== password) {
+            console.log(`[admin login] password mismatch: stored.length=${row.password.length} submitted.length=${password.length}`);
             throw new UnauthorizedException();
         }
         // Generate JWT
