@@ -35,7 +35,7 @@ import { AdminAuthModule } from './admin/admin.module';
                 password: config.get('DB_PASSWORD'),
                 database: config.get('DB_NAME'),
                 entities: [Product, ProductImage, Customer, Order, OrderItem, Transaction, PickupLocation, Coupon, Admin],
-                synchronize: true,
+                synchronize: false,
             }),
         }),
         StripeModule.forRootAsync(),
